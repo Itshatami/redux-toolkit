@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { increment as incrementCounter } from "../counter/counterSlice";
 
 const initialState = {
   numberValue: 0,
@@ -9,15 +10,20 @@ const numberSlice = createSlice({
   initialState,
   reducers: {
     increment: (state, action) => {
-       state.numberValue ++;
+      state.numberValue++;
     },
-    decrement:(state) => {
-        state.numberValue--;
-    }
+    decrement: (state) => {
+      state.numberValue--;
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(incrementCounter, (state, action) => {
+      state.numberValue++;
+    });
   },
 });
 
 export default numberSlice.reducer;
 
-export const {increment , decrement} = numberSlice.actions;
-export const selectNumber = (store)=> store.number.numberValue
+export const { increment, decrement } = numberSlice.actions;
+export const selectNumber = (store) => store.number.numberValue;
